@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-dom": "^16.4.0",    
+    "react-scripts": "1.1.4",
+    "react-spinners": "^0.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
