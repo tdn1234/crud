@@ -1,5 +1,11 @@
-import React, {Component} from 'react';
-import {RingLoader} from 'react-spinners';
+import React, { Component } from 'react';
+
+import { NavLink } from 'react-router-dom';
+
+import Loading from '../../../Utilities/Loading';
+
+import { API_URL } from '../../../AppConstant';
+import { API_END_POINT } from '../UserConstant';
 
 class UserList extends Component {
 
@@ -14,21 +20,26 @@ class UserList extends Component {
     }
 
     componentDidMount() {
-        fetch("http://45.32.104.55:3003/users")
+        fetch(API_URL + API_END_POINT)
             .then(res => res.json())
             .then((result) => {
-                this.setState({isLoading: false, users: result});
+                this.setState({ isLoading: false, users: result });
             }, (error) => {
-                this.setState({isLoading: false, error});
+                this.setState({ isLoading: false, error });
             })
+    }
+
+    ButtonEdit(user) {
+        return <NavLink to={'/users/edit/' + user.id}>{user.name}</NavLink>;
     }
 
     usersList(users) {
         const listItems = users.map((item) => <tr key={item
             .id
             .toString()}>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
+            <td><NavLink to={'/users/edit/' + item.id}>{item.id}</NavLink></td>
+            <td>{this.ButtonEdit(item)}</td>
+            <td><NavLink to={'/users/delete/' + item.id}>Delete</NavLink></td>
         </tr>);
         return (
             <table>
@@ -36,6 +47,7 @@ class UserList extends Component {
                     <tr>
                         <td>ID</td>
                         <td>Name</td>
+                        <td>Action</td>
                     </tr>
                     {listItems}
                 </tbody>
@@ -46,7 +58,7 @@ class UserList extends Component {
     render() {
         const isLoading = this.state.isLoading;
         const UserListView = isLoading
-            ? (<RingLoader color={'#123abc'} loading={true}/>)
+            ? (<Loading />)
             : (this.usersList(this.state.users));
         return (
             <div className="UserList">

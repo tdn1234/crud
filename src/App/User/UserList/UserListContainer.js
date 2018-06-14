@@ -11,7 +11,7 @@ class UserListContainer extends Component {
             <div>
                 <UserList 
                     buttonTitle = "Add New123" 
-                    handleClick = {this.handleClick}                    
+                    handleClick = {this.handleClick}                
                 />
             </div>
         );
