@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 import Loading from '../../../Utilities/Loading';
 
-import { API_URL } from '../../../AppConstant';
-import { API_END_POINT } from '../UserConstant';
+import {API_URL} from '../../../AppConstant';
+import {API_END_POINT} from '../UserConstant';
 
 class UserList extends Component {
 
@@ -23,9 +23,9 @@ class UserList extends Component {
         fetch(API_URL + API_END_POINT)
             .then(res => res.json())
             .then((result) => {
-                this.setState({ isLoading: false, users: result });
+                this.setState({isLoading: false, users: result});
             }, (error) => {
-                this.setState({ isLoading: false, error });
+                this.setState({isLoading: false, error});
             })
     }
 
@@ -37,18 +37,24 @@ class UserList extends Component {
         const listItems = users.map((item) => <tr key={item
             .id
             .toString()}>
-            <td><NavLink to={'/users/edit/' + item.id}>{item.id}</NavLink></td>
+            <td>
+                <NavLink to={'/users/edit/' + item.id}>{item.id}</NavLink>
+            </td>
             <td>{this.ButtonEdit(item)}</td>
-            <td><NavLink to={'/users/delete/' + item.id}>Delete</NavLink></td>
+            <td>
+                <NavLink to={'/users/delete/' + item.id}>Delete</NavLink>
+            </td>
         </tr>);
         return (
-            <table>
-                <tbody>
+            <table className='table'>
+                <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Action</td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
                     </tr>
+                </thead>
+                <tbody>
                     {listItems}
                 </tbody>
             </table>
@@ -58,7 +64,7 @@ class UserList extends Component {
     render() {
         const isLoading = this.state.isLoading;
         const UserListView = isLoading
-            ? (<Loading />)
+            ? (<Loading/>)
             : (this.usersList(this.state.users));
         return (
             <div className="UserList">
