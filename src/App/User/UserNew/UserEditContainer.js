@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect, Route} from 'react-router-dom';
 
 import Loading from '../../../Utilities/Loading';
 
-import {Button} from 'reactstrap';
+import {Button, Input} from 'reactstrap';
 
-import './UserEdit.css';
+import './UserNew.css';
 
 import {API_END_POINT} from '../UserConstant';
 import {API_GET, API_PUT} from '../../../Utilities/Services';
-import UserEdit from './UserEdit';
+import UserNew from './UserNew';
 
-class UserEditContainer extends Component {
+class UserNewContainer extends Component {
 
     constructor(props) {
         super(props);
@@ -79,22 +79,22 @@ class UserEditContainer extends Component {
 
     render() {
         const isLoading = this.state.isLoading;
-        const UserEditView = isLoading
+        const UserNewView = isLoading
             ? (<Loading/>)
-            : (<UserEdit
+            : (<UserNew
                 handleSubmit={this.handleSubmit}
                 handleNameChange={this.handleNameChange}
                 handleEmailChange={this.handleEmailChange}
                 user={this.state.user}/>);
         return (
-            <div className="UserEdit">
+            <div className="UserNew">
                 <Button className='back-button'>
                     <NavLink to='/users'>Back</NavLink>
                 </Button>
-                {UserEditView}
+                {UserNewView}
             </div>
         );
     }
 }
 
-export default UserEditContainer;
+export default UserNewContainer;

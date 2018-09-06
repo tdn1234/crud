@@ -6,20 +6,19 @@ import Loading from '../../../Utilities/Loading';
 
 import {Button} from 'reactstrap';
 
-import './UserEdit.css';
+import './UserNew.css';
 
 import {API_END_POINT} from '../UserConstant';
-import {API_GET, API_PUT} from '../../../Utilities/Services';
-import UserEdit from './UserEdit';
+import {API_POST} from '../../../Utilities/Services';
+import UserNew from './UserNew';
 
-class UserEditContainer extends Component {
+class UserNewContainer extends Component {
 
     constructor(props) {
         super(props);
         this.handleClick = props.handleClick;
         this.state = {
-            isLoading: true,
-            userId: props.match.params.id,
+            isLoading: false,           
             user: {},
             error: null
         };
@@ -36,10 +35,6 @@ class UserEditContainer extends Component {
 
     onFailure(error) {
         this.setState({isLoading: false, error});
-    }
-
-    componentDidMount() {
-        API_GET(API_END_POINT + '/' + this.state.userId, this.onSuccess, this.onFailure);
     }
 
     handleNameChange(event) {
@@ -64,7 +59,7 @@ class UserEditContainer extends Component {
         event.preventDefault();
         this.setState({isLoading: true});
 
-        API_PUT(API_END_POINT + '/' + this.state.userId, 
+        API_POST(API_END_POINT + '/', 
             {
                 name: this.state.user.name,
                 email: this.state.user.email
@@ -79,22 +74,22 @@ class UserEditContainer extends Component {
 
     render() {
         const isLoading = this.state.isLoading;
-        const UserEditView = isLoading
+        const UserNewView = isLoading
             ? (<Loading/>)
-            : (<UserEdit
+            : (<UserNew
                 handleSubmit={this.handleSubmit}
                 handleNameChange={this.handleNameChange}
                 handleEmailChange={this.handleEmailChange}
-                user={this.state.user}/>);
+                />);
         return (
-            <div className="UserEdit">
+            <div className="UserNew">
                 <Button className='back-button'>
                     <NavLink to='/users'>Back</NavLink>
                 </Button>
-                {UserEditView}
+                {UserNewView}
             </div>
         );
     }
 }
 
-export default UserEditContainer;
+export default UserNewContainer;

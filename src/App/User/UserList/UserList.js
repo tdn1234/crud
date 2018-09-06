@@ -39,8 +39,11 @@ class UserList extends Component {
             .toString()}>
             <td>
                 <NavLink to={'/users/edit/' + item.id}>{item.id}</NavLink>
-            </td>
+            </td>            
             <td>{this.ButtonEdit(item)}</td>
+            <td>
+                <NavLink to={'/users/edit/' + item.id}>{item.email}</NavLink>
+            </td>
             <td>
                 <NavLink to={'/users/delete/' + item.id}>Delete</NavLink>
             </td>
@@ -51,6 +54,7 @@ class UserList extends Component {
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Action</th>
                     </tr>
                 </thead>
