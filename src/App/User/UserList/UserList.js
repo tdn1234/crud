@@ -4,29 +4,13 @@ import {NavLink} from 'react-router-dom';
 
 import Loading from '../../../Utilities/Loading';
 
-import {API_URL} from '../../../AppConstant';
-import {API_END_POINT} from '../UserConstant';
+import {Input} from 'reactstrap';
 
 class UserList extends Component {
 
     constructor(props) {
         super(props);
         this.handleClick = props.handleClick;
-        this.state = {
-            isLoading: true,
-            users: [],
-            error: null
-        };
-    }
-
-    componentDidMount() {
-        fetch(API_URL + API_END_POINT)
-            .then(res => res.json())
-            .then((result) => {
-                this.setState({isLoading: false, users: result});
-            }, (error) => {
-                this.setState({isLoading: false, error});
-            })
     }
 
     ButtonEdit(user) {
@@ -39,7 +23,7 @@ class UserList extends Component {
             .toString()}>
             <td>
                 <NavLink to={'/users/edit/' + item.id}>{item.id}</NavLink>
-            </td>            
+            </td>
             <td>{this.ButtonEdit(item)}</td>
             <td>
                 <NavLink to={'/users/edit/' + item.id}>{item.email}</NavLink>
@@ -66,14 +50,23 @@ class UserList extends Component {
     }
 
     render() {
-        const isLoading = this.state.isLoading;
+        const isLoading = this.props.isLoading;
         const UserListView = isLoading
             ? (<Loading/>)
-            : (this.usersList(this.state.users));
+            : (this.usersList(this.props.users));
         return (
             <div className="UserList">
                 <button className="square" onClick={this.handleClick}>
                     {this.props.buttonTitle}
+                </button>
+                
+                <Input
+                    type='text'
+                    className='form-control'
+                    name='search'
+                    onChange={this.props.handleSearchInput}/>
+                <button className="square" onClick={this.props.handleSearchSubmit}>
+                    Search
                 </button>
                 {UserListView}
             </div>

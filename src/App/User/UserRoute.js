@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Route, Switch} from 'react-router-dom';
 
 import UserListContainer from "./UserList/UserListContainer";
 import UserEditContainer from "./UserEdit/UserEditContainer";

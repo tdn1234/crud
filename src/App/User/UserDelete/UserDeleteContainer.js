@@ -26,7 +26,7 @@ class UserDeleteContainer extends Component {
     }
 
     onFailure(error) {
-        this.setState({isLoading: false, error});
+        this.setState({isLoading: false, error: error});
     }
 
     componentDidMount() {
