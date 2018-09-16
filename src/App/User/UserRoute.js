@@ -9,12 +9,12 @@ import UserDeleteContainer from "./UserDelete/UserDeleteContainer";
 class UserRoute extends Component {
     render() {
         return (
-            <Switch>
+            <div>
                 <Route exact path="/users" component={UserListContainer}/>
                 <Route exact path="/users/new" component={UserNewContainer}/>
                 <Route path="/users/edit/:id" component={UserEditContainer}/>
                 <Route path="/users/delete/:id" component={UserDeleteContainer}/>
-            </Switch>
+            </div>
         );
     }
 }

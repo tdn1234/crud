@@ -5,25 +5,8 @@ import {Button} from 'reactstrap';
 import Form from 'react-validation/build/form';
 
 import Input from 'react-validation/build/input';
-// import validator from 'react-validation'; import {isEmail} from 'validator';
 
-const required = (value, props) => {
-    if (!value || (props.isCheckable && !props.checked)) {
-        return <span className="form-error is-visible">Required</span>;
-    }
-};
-
-const email = (value) => {
-    if (!isEmail(value)) {
-        return <span className="form-error is-visible">{value}
-            is not a valid email.</span>;
-    }
-};
-
-function isEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+import {required, email} from '../../../Utilities/Validations';
 
 class UserNew extends Component {
     constructor(props) {
@@ -50,11 +33,12 @@ class UserNew extends Component {
                     <label>Name:</label>
                     <Input
                         type="text"
-                        className="required-entry"
+                        className="form-control"
                         name="name"
                         validations={[required]}
                         onChange={this.props.handleNameChange}/>
-
+                        
+                    <label>Email:</label>
                     <Input
                         type='email'
                         className='form-control'

@@ -6,6 +6,10 @@ import Loading from '../../../Utilities/Loading';
 
 import {Input} from 'reactstrap';
 
+import ReactTable from "react-table";
+
+import "react-table/react-table.css";
+
 class UserList extends Component {
 
     constructor(props) {
@@ -17,36 +21,49 @@ class UserList extends Component {
         return <NavLink to={'/users/edit/' + user.id}>{user.name}</NavLink>;
     }
 
-    usersList(users) {
-        const listItems = users.map((item) => <tr key={item
-            .id
-            .toString()}>
-            <td>
-                <NavLink to={'/users/edit/' + item.id}>{item.id}</NavLink>
-            </td>
-            <td>{this.ButtonEdit(item)}</td>
-            <td>
-                <NavLink to={'/users/edit/' + item.id}>{item.email}</NavLink>
-            </td>
-            <td>
-                <NavLink to={'/users/delete/' + item.id}>Delete</NavLink>
-            </td>
-        </tr>);
-        return (
-            <table className='table'>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listItems}
-                </tbody>
-            </table>
-        );
+    userEditUrl(cellInfo) {       
+        return <NavLink to={'/users/edit/' + cellInfo.original.id}>{cellInfo.value}</NavLink>
+    }
+
+    userDeleteUrl(cellInfo) {       
+        return <NavLink to={'/users/delete/' + cellInfo.value}>Delete</NavLink>
+    }
+
+    usersList(users) {       
+        return (<ReactTable
+            data={users}
+            columns={[{
+                columns: [
+                    {
+                        Header: "ID",
+                        accessor: "id",
+                        Cell: this.userEditUrl
+                    }, 
+                    {
+                        Header: "Name",
+                        accessor: "name",
+                        Cell: this.userEditUrl
+                    }, 
+                    {
+                        Header: "Email",
+                        accessor: "email",
+                        Cell: this.userEditUrl
+                    },
+                    {
+                        Header: "",
+                        accessor: "id",
+                        Cell: this.userDeleteUrl
+                    }
+                ]
+            }
+        ]}
+            defaultSorted={[{
+                id: "id",
+                desc: true
+            }
+        ]}
+            defaultPageSize={10}
+            className="-striped -highlight table"/>);
     }
 
     render() {
@@ -59,7 +76,7 @@ class UserList extends Component {
                 <button className="square" onClick={this.handleClick}>
                     {this.props.buttonTitle}
                 </button>
-                
+
                 <Input
                     type='text'
                     className='form-control'

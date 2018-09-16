@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import UserRoute from "./App/User/UserRoute";
+// import UserRoute from "./App/User/UserRoute";
 
 import AboutUsContainer from "./App/Pages/AboutUs/AboutUsContainer";
 
